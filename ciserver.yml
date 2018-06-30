@@ -1,0 +1,7 @@
+---
+# file: ciserver
+- hosts: ciserver
+  sudo: yes
+  roles:
+     - java
+     - jenkins

@@ -1,0 +1,7 @@
+---
+# file:sonarserver
+- hosts: sonarserver
+  sudo: yes
+  roles:
+     - java
+     - sonar

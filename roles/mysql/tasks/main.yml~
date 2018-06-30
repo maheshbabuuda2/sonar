@@ -1,0 +1,23 @@
+---
+- name: install latest mysql repository
+  yum: name={{MYSQL_REPO_URL}} state=installed
+
+- name: be sure mysql-server is installed
+  yum: name={{ item }} state=latest
+  with_items: 
+    - mysql-community-server
+    - MySQL-python
+
+- name: be sure mysqld is running and enabled
+  service: name=mysqld state=running enabled=yes
+
+- name: Create database
+  mysql_db: db={{ DBNAME_FOR_SONAR }} state=present encoding=utf8
+
+- name: Create database user
+  mysql_user: >
+    name={{ dbuser }}
+    password="{{ dbpassword }}"
+    priv={{ DBNAME_FOR_SONAR }}.*:ALL
+    state=present
+
